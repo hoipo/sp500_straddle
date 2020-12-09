@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"logic"
 	"models"
+	"os"
 	"routers"
 )
 
@@ -20,7 +21,8 @@ func main() {
 	dao.DB.AutoMigrate(&models.FutureData{}, &models.HkETFData{}, &models.HkStockData{}, &models.LofData{})
 	// 运行服务
 	r := routers.SetupRouters()
-	if err := r.Run(); err != nil {
+	port := os.Getenv("PORT")
+	if err := r.Run(":" + port); err != nil {
 		panic(err)
 	}
 
