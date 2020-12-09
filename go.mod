@@ -1,6 +1,7 @@
+// +heroku goVersion go1.14
 module github.com/hoipo/sp500_straddle
 
-go 1.14.1
+go 1.14
 
 replace routers => ./routers
 
