@@ -16,6 +16,7 @@ type LofData struct {
 	Time      string  `json:"time"`
 	Value     float32 `json:"value"`
 	ValueDate string  `json:"value_date"`
+	Name      string  `json:name`
 }
 
 // CreateLof : Create a new record in db

@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -9,10 +9,10 @@ import (
 var DB *gorm.DB
 
 func InitSqlite() (err error) {
-	DB, err = gorm.Open(sqlite.Open("app.db"), &gorm.Config{})
+	dsn := "host=localhost user=postgres password=123456 dbname=sp500 port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
-		return err
 	}
 	return
 }

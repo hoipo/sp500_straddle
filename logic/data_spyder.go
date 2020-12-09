@@ -20,13 +20,18 @@ func GetFuture(symbol string) (models.FutureData, error) {
 		return models.FutureData{}, errors.New("Connection error")
 	}
 	defer res.Body.Close()
-	s, err := ioutil.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return models.FutureData{}, errors.New("Read response body failed")
 	}
 
-	if strings.HasSuffix(string(s), "=\"\";\n") {
+	// 数据转化为UTF-8
+	s, err := myutils.GbkToUtf8(body)
+	if err != nil {
+		return models.FutureData{}, errors.New("Transform to UTF-8 failed")
+	}
 
+	if strings.HasSuffix(string(s), "=\"\";\n") {
 		return models.FutureData{}, errors.New("No data with the symbol " + symbol)
 	}
 
@@ -52,6 +57,7 @@ func GetFuture(symbol string) (models.FutureData, error) {
 		HoldAmount: int32(holdAmount),
 		Time:       strArr[6],
 		Date:       strArr[12],
+		Name:       strArr[13],
 	}
 
 	return future, nil
@@ -64,9 +70,15 @@ func GetLOF(symbol string) (models.LofData, error) {
 		return models.LofData{}, errors.New("Connection error")
 	}
 	defer res.Body.Close()
-	s, err := ioutil.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return models.LofData{}, errors.New("Read response body failed")
+	}
+
+	// 数据转化为UTF-8
+	s, err := myutils.GbkToUtf8(body)
+	if err != nil {
+		return models.LofData{}, errors.New("Transform to UTF-8 failed")
 	}
 
 	if strings.HasSuffix(string(s), "=\"\";\n") {
@@ -87,6 +99,7 @@ func GetLOF(symbol string) (models.LofData, error) {
 	ask, _ := strconv.ParseFloat(szArr[7], 32)
 	date := szArr[30]
 	time := szArr[31]
+	name := strings.Split(szArr[0], "=\"")[1]
 
 	// 处理基金的净值数据
 	fArr := strings.Split(f, ",")
@@ -105,6 +118,7 @@ func GetLOF(symbol string) (models.LofData, error) {
 		Time:      time,
 		Value:     float32(value),
 		ValueDate: valueDate,
+		Name:      name,
 	}, nil
 }
 
@@ -172,6 +186,7 @@ func GetHkETF() (models.HkETFData, error) {
 	_ = json.Unmarshal(body, &result)
 	data := result["histories"].([]interface{})[3].(map[string]interface{})["fundPrices"].([]interface{})[0].(map[string]interface{})
 	return models.HkETFData{
+		Name:  "领航标普五百",
 		Price: float32(data["price"].(float64)),
 		Date:  data["asOfDate"].(string),
 	}, nil

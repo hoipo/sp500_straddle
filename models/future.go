@@ -17,6 +17,7 @@ type FutureData struct {
 	HoldAmount int32   `json:"hold_amount"`
 	Time       string  `json:"time"`
 	Date       string  `json:"date"`
+	Name       string  `json:name`
 }
 
 func CreateFuture(future *FutureData) (err error) {

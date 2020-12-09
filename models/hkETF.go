@@ -7,6 +7,7 @@ type HkETFData struct {
 	ID    int     `json:"id"`
 	Price float32 `json:"price"`
 	Date  string  `json:"date"`
+	Name  string  `json:name`
 }
 
 // CreateHkETF : Create a new record in db

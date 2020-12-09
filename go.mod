@@ -19,6 +19,7 @@ require (
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
 	golang.org/x/sys v0.0.0-20201126233918-771906719818 // indirect
+	gorm.io/driver/postgres v1.0.5 // indirect
 	gorm.io/driver/sqlite v1.1.4 // indirect
 	gorm.io/gorm v1.20.7 // indirect
 	logic v0.0.0
