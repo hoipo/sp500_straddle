@@ -26,7 +26,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间16:00记录 香港ETF 03140 价格
-	c.AddFunc("0 1 16 * * *", func() {
+	c.AddFunc("0 1 8 * * *", func() {
 		stock, err := GetHKStock("03140")
 		if err != nil {
 			panic(err)
@@ -39,7 +39,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间16:00记录 161125 价格
-	c.AddFunc("0 1 15 * * *", func() {
+	c.AddFunc("0 1 7 * * *", func() {
 		lof, err := GetLOF("161125")
 		if err != nil {
 			panic(err)
@@ -52,7 +52,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间16:00记录 161125 价格
-	c.AddFunc("0 30 9 * * *", func() {
+	c.AddFunc("0 50 1 * * *", func() {
 		HkETF, err := GetHkETF()
 		if err != nil {
 			panic(err)
