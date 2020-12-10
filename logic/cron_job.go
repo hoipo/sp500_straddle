@@ -52,7 +52,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间16:00记录 161125 价格
-	c.AddFunc("0 1 3 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 08 11 * * *", func() {
 		HkETF, err := GetHkETF()
 		if err != nil {
 			panic(err)
