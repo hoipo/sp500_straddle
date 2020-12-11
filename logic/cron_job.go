@@ -42,7 +42,7 @@ func Job() {
 
 	//定时任务 上海时间15:01记录 161125 价格
 	// c.AddFunc("CRON_TZ=Asia/Shanghai 01 15 * * *", func() {
-	c.AddFunc("CRON_TZ=Asia/Shanghai 30 17 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 28 20 * * *", func() {
 		lof, err := GetLOF("161125")
 		if err != nil {
 			panic(err)
