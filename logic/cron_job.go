@@ -12,6 +12,16 @@ func Job() {
 	c := cron.New() //精确到秒
 	fmt.Println("Cron start")
 
+	lof, err := GetLOF("161125")
+	if err != nil {
+		panic(err)
+	}
+	err = models.CreateLof(&lof)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(lof)
+
 	//定时任务 上海时间05:00记录期货价格
 	// c.AddFunc("CRON_TZ=America/New_York 00 16 * * *", func() {
 	c.AddFunc("CRON_TZ=America/New_York 30 04 * * *", func() {
