@@ -12,7 +12,7 @@ import (
 func main() {
 	go logic.Job()
 	// connect the sqlite database
-	err := dao.InitSqlite()
+	err := dao.InitSql()
 	if err != nil {
 		fmt.Printf("init sqlite failed, err:%v\n", err)
 		return
