@@ -11,9 +11,11 @@ services:
       MYSQL_PASSWORD: "root1234"
     volumes:
       - ./init.sql:/data/application/init.sql
-  sp500:
+  sp500_straddle:
     build: .
     command: sh -c "./wait-for.sh mysql8019:3306 -- ./sp500_straddle"
+    environment:
+      GIN_MODE: "release"
     depends_on:
       - mysql8019
     ports:
