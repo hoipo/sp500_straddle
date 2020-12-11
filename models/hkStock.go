@@ -1,6 +1,6 @@
 package models
 
-import "dao"
+import "sp500_straddle/dao"
 
 // HkStockData 港股结构体
 type HkStockData struct {

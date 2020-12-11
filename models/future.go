@@ -1,7 +1,7 @@
 package models
 
 import (
-	"dao"
+	"sp500_straddle/dao"
 )
 
 // FutureData 期货的数据结构

@@ -1,6 +1,6 @@
 package models
 
-import "dao"
+import "sp500_straddle/dao"
 
 // HkETFData 香港ETF数据结构
 type HkETFData struct {

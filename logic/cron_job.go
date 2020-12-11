@@ -3,7 +3,7 @@ package logic
 import (
 	"fmt"
 
-	"models"
+	"sp500_straddle/models"
 
 	"github.com/robfig/cron/v3"
 )

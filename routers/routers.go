@@ -5,9 +5,8 @@ import (
 	"strconv"
 	"strings"
 
-	"logic"
-
-	"models"
+	"sp500_straddle/logic"
+	"sp500_straddle/models"
 
 	"github.com/gin-gonic/gin"
 )

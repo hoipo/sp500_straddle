@@ -1,11 +1,12 @@
 package main
 
 import (
-	"dao"
 	"fmt"
-	"logic"
-	"models"
-	"routers"
+
+	"sp500_straddle/dao"
+	"sp500_straddle/logic"
+	"sp500_straddle/models"
+	"sp500_straddle/routers"
 )
 
 func main() {

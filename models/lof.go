@@ -1,6 +1,6 @@
 package models
 
-import "dao"
+import "sp500_straddle/dao"
 
 // LofData lof的数据结构
 type LofData struct {
