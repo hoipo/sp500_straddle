@@ -5,7 +5,8 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
     GOARCH=amd64 \
-    GIN_MODE=release
+    GIN_MODE=release \
+    GOPROXY=https://goproxy.io,direct
 
 # 移动到工作目录：/build
 WORKDIR /build
