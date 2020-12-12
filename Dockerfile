@@ -32,13 +32,15 @@ COPY ./wait-for.sh /
 # 从builder镜像中把/dist/app 拷贝到当前目录
 COPY --from=builder /build/sp500_straddle /
 
-RUN set -eux; \
-	apt-get update; \
-	apt-get install -y \
+RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+&& apt-get clean \
+&& apt-get update;
+
+RUN apt-get install -y \
 		--no-install-recommends \
 		netcat; \
         chmod 755 wait-for.sh
-        
+
 RUN apt-get install -y cron
 RUN touch /var/log/cron.log
 
