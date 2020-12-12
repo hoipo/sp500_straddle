@@ -36,8 +36,11 @@ RUN set -eux; \
 	apt-get update; \
 	apt-get install -y \
 		--no-install-recommends \
+        cron \
 		netcat; \
         chmod 755 wait-for.sh
+
+RUN touch /var/log/cron.log
 
 # 需要运行的命令
 # ENTRYPOINT ["/sp500_straddle", "conf/config.ini"]
