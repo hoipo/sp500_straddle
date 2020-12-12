@@ -36,10 +36,10 @@ RUN set -eux; \
 	apt-get update; \
 	apt-get install -y \
 		--no-install-recommends \
-        cron \
 		netcat; \
         chmod 755 wait-for.sh
-
+        
+RUN apt-get install -y cron
 RUN touch /var/log/cron.log
 
 # 需要运行的命令
