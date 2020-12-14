@@ -26,8 +26,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间16:00记录 香港ETF 03140 价格
-	// c.AddFunc("CRON_TZ=Asia/Shanghai 01 16 * * *", func() {
-	c.AddFunc("CRON_TZ=Asia/Shanghai 20 17 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 01 16 * * *", func() {
 		stock, err := GetHKStock("03140")
 		if err != nil {
 			panic(err)
@@ -40,8 +39,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间15:01记录 161125 价格
-	// c.AddFunc("CRON_TZ=Asia/Shanghai 01 15 * * *", func() {
-	c.AddFunc("CRON_TZ=Asia/Shanghai 15 12 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 01 15 * * *", func() {
 		lof, err := GetLOF("161125")
 		if err != nil {
 			panic(err)
@@ -54,8 +52,7 @@ func Job() {
 	})
 
 	//定时任务 上海时间09:03记录 161125 价格
-	// c.AddFunc("CRON_TZ=Asia/Shanghai 30 09 * * *", func() {
-	c.AddFunc("CRON_TZ=Asia/Shanghai 50 13 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 31 09 * * *", func() {
 		HkETF, err := GetHkETF()
 		if err != nil {
 			panic(err)
