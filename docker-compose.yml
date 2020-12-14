@@ -15,8 +15,8 @@ services:
   sp500_straddle:
     build: . 
     command: sh -c "./wait-for.sh mysql8019:3306 -- ./sp500_straddle"
-    # envirodocknment:
-      # GIN_MODE: "release"
+    envirodocknment:
+      GIN_MODE: "release"
     depends_on:
       - mysql8019
     ports:
