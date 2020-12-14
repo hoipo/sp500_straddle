@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,10 +14,19 @@ import (
 	"time"
 )
 
+var tr = &http.Transport{ //解决x509: certificate signed by unknown authority
+	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+}
+var client = &http.Client{
+	Timeout:   15 * time.Second,
+	Transport: tr, //解决x509: certificate signed by unknown authority
+}
+
 //GetFuture : get the data of ES future
 func GetFuture(symbol string) (models.FutureData, error) {
-	res, err := http.DefaultClient.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=hf_" + symbol)
+	res, err := client.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=hf_" + symbol)
 	if err != nil {
+		panic(err)
 		return models.FutureData{}, errors.New("Connection error")
 	}
 	defer res.Body.Close()
@@ -65,7 +75,7 @@ func GetFuture(symbol string) (models.FutureData, error) {
 
 //GetLOF : 获取国内LOF的数据
 func GetLOF(symbol string) (models.LofData, error) {
-	res, err := http.DefaultClient.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=sz" + symbol + ",f_" + symbol)
+	res, err := client.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=sz" + symbol + ",f_" + symbol)
 	if err != nil {
 		return models.LofData{}, errors.New("Connection error")
 	}
@@ -124,7 +134,7 @@ func GetLOF(symbol string) (models.LofData, error) {
 
 //GetHKStock : 获取国内LOF的数据
 func GetHKStock(symbol string) (models.HkStockData, error) {
-	res, err := http.DefaultClient.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=rt_hk" + symbol)
+	res, err := client.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=rt_hk" + symbol)
 	if err != nil {
 		return models.HkStockData{}, errors.New("Connection error")
 	}
@@ -172,7 +182,7 @@ func GetHkETF() (models.HkETFData, error) {
 	now := time.Now()
 	d, _ := time.ParseDuration("-72h")
 	fmt.Println("https://www.vanguard.com.hk/portal/mvc/getETFNAVHistory.json?portId=9583&startDate=" + now.Add(d).Format("02-01-2006") + "&endDate=" + now.Format("02-01-2006"))
-	res, err := http.DefaultClient.Get("https://www.vanguard.com.hk/portal/mvc/getETFNAVHistory.json?portId=9583&startDate=" + now.Add(d).Format("02-01-2006") + "&endDate=" + now.Format("02-01-2006"))
+	res, err := client.Get("https://www.vanguard.com.hk/portal/mvc/getETFNAVHistory.json?portId=9583&startDate=" + now.Add(d).Format("02-01-2006") + "&endDate=" + now.Format("02-01-2006"))
 	if err != nil {
 		return models.HkETFData{}, errors.New("Connection error")
 	}
@@ -199,7 +209,7 @@ func GetForex(symbols []string) ([]models.ForexData, error) {
 		symbols[i] = strings.ToLower(v)
 	}
 	fmt.Println(strings.Join(symbols, ",fx_s"))
-	res, err := http.DefaultClient.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=fx_s" + strings.Join(symbols, ",fx_s"))
+	res, err := client.Get("https://hq.sinajs.cn/?_=" + strconv.FormatInt(time.Now().Unix(), 10) + "&list=fx_s" + strings.Join(symbols, ",fx_s"))
 	if err != nil {
 		return []models.ForexData{}, errors.New("Connection error")
 	}

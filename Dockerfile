@@ -17,4 +17,32 @@ RUN go mod download
 
 COPY . .
 
-CMD ["go", "run", "main.go"]
+RUN go build -o sp500_straddle main.go
+
+###################
+# 接下来创建一个小镜像
+###################
+FROM debian:stretch-slim
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.io,direct
+
+COPY ./wait-for.sh /
+
+
+# 从builder镜像中把/dist/app 拷贝到当前目录
+COPY --from=builder /build/sp500_straddle /
+
+RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+&& apt-get clean \
+&& apt-get update;
+
+RUN apt-get install -y \
+		--no-install-recommends \
+		netcat; \
+        chmod 755 wait-for.sh
+
+# CMD ["go", "run", "main.go"]

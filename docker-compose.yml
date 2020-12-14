@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
   mysql8019:
     image: "mysql:8.0.19"
@@ -11,11 +11,11 @@ services:
       MYSQL_PASSWORD: "root1234"
     volumes:
       - ./init.sql:/data/application/init.sql
-      - /root/docker/mysql:/var/lib/mysql
+      - /Users/bobo/docker/mysql:/var/lib/mysql
   sp500_straddle:
-    build: .
+    build: . 
     command: sh -c "./wait-for.sh mysql8019:3306 -- ./sp500_straddle"
-    # environment:
+    # envirodocknment:
       # GIN_MODE: "release"
     depends_on:
       - mysql8019

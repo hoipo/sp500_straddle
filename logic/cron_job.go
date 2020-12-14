@@ -10,11 +10,10 @@ import (
 
 func Job() {
 	c := cron.New() //精确到秒
-	fmt.Println("Cron start 3")
+	fmt.Println("Cron start 7")
 
 	//定时任务 上海时间05:00记录期货价格
-	// c.AddFunc("CRON_TZ=America/New_York 00 16 * * *", func() {
-	c.AddFunc("CRON_TZ=America/New_York 30 04 * * *", func() {
+	c.AddFunc("CRON_TZ=America/New_York 00 16 * * *", func() {
 		futures, err := GetFuture("ES")
 		if err != nil {
 			panic(err)
@@ -42,7 +41,7 @@ func Job() {
 
 	//定时任务 上海时间15:01记录 161125 价格
 	// c.AddFunc("CRON_TZ=Asia/Shanghai 01 15 * * *", func() {
-	c.AddFunc("CRON_TZ=Asia/Shanghai 28 20 * * *", func() {
+	c.AddFunc("CRON_TZ=Asia/Shanghai 15 12 * * *", func() {
 		lof, err := GetLOF("161125")
 		if err != nil {
 			panic(err)
