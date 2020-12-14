@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: "root1234"
     volumes:
       - ./init.sql:/data/application/init.sql
-      - /Users/bobo/docker/mysql:/var/lib/mysql
+      - ~/docker/mysql:/var/lib/mysql
   sp500_straddle:
     build: . 
     command: sh -c "./wait-for.sh mysql8019:3306 -- ./sp500_straddle"
